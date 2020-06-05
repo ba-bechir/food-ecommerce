@@ -9,6 +9,7 @@
     <br>  
     <div class="row">
         {% for article in articles %}
+        {% if article.quantity > 0%}
     <div class="col-md-4 d-flex align-items-stretch">
         <figure class="card card-product">
             <div class="img-wrap"><img src="{{article.photos}}"></div>
@@ -36,6 +37,7 @@
             <a href="{{ path('products_details') }}" class="btn btn-sm btn-primary float-right"> Order Now</a>
         </figure>
     </div> 
+    {% endif %}
     {% endfor %}
     
 </div> 
