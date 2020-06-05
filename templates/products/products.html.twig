@@ -19,20 +19,21 @@
             
             <div class="bottom-wrap mt-auto">
                 
-                <select class="form-control" id="exampleFormControlSelect1" >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
                   <br>
-                <a href="" class="btn btn-sm btn-primary float-right"> Order Now</a>	
+                	
                 
                 <div class="price-wrap h5">
-                    <span class="price-new">{{article.price}} €</span>
+                    
+                    <center><span class="price-new"> {{article.price}} € &nbsp;&nbsp;
+                        <select id="exampleFormControlSelect1" >
+                            {% for i in 1..10 %}
+                                <option>{{i}}</option>
+                            {% endfor %}</center>
+                        </select>
+                    </span>
                 </div> 
             </div> 
+            <a href="{{ path('products_details') }}" class="btn btn-sm btn-primary float-right"> Order Now</a>
         </figure>
     </div> 
     {% endfor %}
