@@ -14,7 +14,7 @@
         <figure class="card card-product">
             <div class="img-wrap"><img src="{{article.photos}}"></div>
             <figcaption class="info-wrap">
-                    <h4 class="title">{{article.articleName}}</h4>
+                    <a href="{{ path('products_details', {'id' : article.id }) }}"><h4 class="title">{{article.articleName}}</h4></a>
                     <p class="desc">{{article.ingredients | raw }}</p>
             </figcaption>
             
@@ -34,7 +34,7 @@
                     </span>
                 </div> 
             </div> 
-            <a href="{{ path('products_details') }}" class="btn btn-sm btn-primary float-right"> Order Now</a>
+            <a href="" class="btn btn-sm btn-primary float-right"> Ajouter au panier</a>
         </figure>
     </div> 
     {% endif %}

@@ -1,0 +1,27 @@
+a:hover {
+    color: blue;
+}
+
+/* img {
+    height: 220;
+    width: 348;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 40%;
+} */
+
+img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    width: 50%;
+  }
+
+aside.col-sm-5 .border-right {
+
+   height: 500px;
+}
