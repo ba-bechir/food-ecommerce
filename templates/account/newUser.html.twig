@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block title %}Page de connexion{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Nouveau client</h1>
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary">Créer le compte</button> 
+
+{#     {{dump(form.email)}} #}
+
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}
+
+
+{% block _user_email_widget %}
+  {{ form_widget(form.email) }}
+<div class="form-group">
+  <label class="control-label" for="email">
+    Email
+  </label>
+  <div class="input-group">
+    <div class="input-group-addon">
+      @
+    </div>
+    <input class="form-control" id="user_email" name="user[email]" type="text"/>
+  </div>
+</div>
+        
+{% endblock %}
