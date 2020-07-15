@@ -68,8 +68,26 @@ class CartController extends AbstractController
 
         //Affichage
         $session->set('cart', $cart);
-        dump($session->get('cart'));die;
+        
+        return $this->redirectToRoute('cart_index');
         
     }
-}
 
+    /**
+     * @Route("/cart/remove/{id}", name="cart_remove")
+     * Suppression d'articles dans le panier
+     */
+    public function remove(Article $article, SessionInterface $session)
+    {
+        $cart = $session->get('cart', []);
+
+        if(!empty($cart[$article->getId()]))
+        {
+            unset($cart[$article->getId()]);
+        } 
+
+        $session->set('cart', $cart);
+
+        return $this->redirectToRoute('cart_index');
+    }
+}
