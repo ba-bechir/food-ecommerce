@@ -55,9 +55,12 @@ class User implements UserInterface
      */
     private $userRoles;
 
+
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
+        $this->articles = new ArrayCollection();
+        
     }
 
     public function getPasswordConfirm(): ?string
@@ -179,5 +182,53 @@ class User implements UserInterface
  
          return $this;
      }
- 
+
+     public function getCart(): ?Cart
+     {
+         return $this->cart;
+     }
+
+     public function setCart(Cart $cart): self
+     {
+         $this->cart = $cart;
+
+         // set the owning side of the relation if necessary
+         if ($cart->getUser() !== $this) {
+             $cart->setUser($this);
+         }
+
+         return $this;
+     }
+
+     /**
+      * @return Collection|Article[]
+      */
+     public function getArticles(): Collection
+     {
+         return $this->articles;
+     }
+
+     public function addArticle(Article $article): self
+     {
+         if (!$this->articles->contains($article)) {
+             $this->articles[] = $article;
+             $article->setUser($this);
+         }
+
+         return $this;
+     }
+
+     public function removeArticle(Article $article): self
+     {
+         if ($this->articles->contains($article)) {
+             $this->articles->removeElement($article);
+             // set the owning side to null (unless already changed)
+             if ($article->getUser() === $this) {
+                 $article->setUser(null);
+             }
+         }
+
+         return $this;
+     }
+
 }

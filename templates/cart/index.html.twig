@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+
+<h1>MON PANIER</h1>
+
+{% if items | length > 0 %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Price</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.product.articleName}}</td>
+                    <td>{{ item.product.price}}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price * item.quantity }}</td>
+                    <td>
+                        <a href="#" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                 <td colspan="3" class="text-right"><b>Total : </b></td> 
+                <td> <b>{{ total }}</b></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+
+{% else %}
+    <p>Panier Vide</p>
+{% endif %}
+
+{% endblock %}

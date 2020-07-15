@@ -28,13 +28,13 @@
                     <center><span class="price-new"> {{article.price}} € &nbsp;&nbsp;
                         <select id="exampleFormControlSelect1" >
                             {% for i in 1..10 %}
-                                <option>{{i}}</option>
+                                <option value="qte">{{i}}</option>
                             {% endfor %}</center>
                         </select>
                     </span>
                 </div> 
             </div> 
-            <a href="" class="btn btn-sm btn-primary float-right"> Ajouter au panier</a>
+            <a href="{{ path('cart_add', {'id' : article.id }) }}"> Ajouter au panier</a>
         </figure>
     </div> 
     {% endif %}
