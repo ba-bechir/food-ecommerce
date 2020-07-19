@@ -55,6 +55,12 @@ class User implements UserInterface
      */
     private $userRoles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CartArticle::class, mappedBy="user")
+     * @ORM\JoinColumn(name="cart_article_id", referencedColumnName="id")
+     */
+    private $cartArticle;
+
 
     public function __construct()
     {
@@ -183,22 +189,6 @@ class User implements UserInterface
          return $this;
      }
 
-     public function getCart(): ?Cart
-     {
-         return $this->cart;
-     }
-
-     public function setCart(Cart $cart): self
-     {
-         $this->cart = $cart;
-
-         // set the owning side of the relation if necessary
-         if ($cart->getUser() !== $this) {
-             $cart->setUser($this);
-         }
-
-         return $this;
-     }
 
      /**
       * @return Collection|Article[]
@@ -227,6 +217,18 @@ class User implements UserInterface
                  $article->setUser(null);
              }
          }
+
+         return $this;
+     }
+
+     public function getCartArticle(): ?CartArticle
+     {
+         return $this->cartArticle;
+     }
+
+     public function setCartArticle(?CartArticle $cartArticle): self
+     {
+         $this->cartArticle = $cartArticle;
 
          return $this;
      }

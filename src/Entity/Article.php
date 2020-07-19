@@ -64,13 +64,20 @@ class Article
      */
     private $expirationDate;
 
+  
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity=CartArticle::class, mappedBy="article")
+     */
+    private $cartArticles;
+
 
 
     public function __construct()
     {
-        $this->cart = new ArrayCollection();
-        $this->cart = new ArrayCollection();
+       
         $this->user = new ArrayCollection();
+        $this->cartArticles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,33 +193,6 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection|Cart[]
-     */
-    public function getCarts(): Collection
-    {
-        return $this->cart;
-    }
-
-    public function addCart(Cart $cart): self
-    {
-        if (!$this->cart->contains($cart)) {
-            $this->cart[] = $cart;
-            $cart->addArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCart(Cart $cart): self
-    {
-        if ($this->cart->contains($cart)) {
-            $this->cart->removeElement($cart);
-            $cart->removeArticle($this);
-        }
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -251,6 +231,37 @@ class Article
     {
         if ($this->user->contains($user)) {
             $this->user->removeElement($user);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CartArticle[]
+     */
+    public function getCartArticles(): Collection
+    {
+        return $this->cartArticles;
+    }
+
+    public function addCartArticle(CartArticle $cartArticle): self
+    {
+        if (!$this->cartArticles->contains($cartArticle)) {
+            $this->cartArticles[] = $cartArticle;
+            $cartArticle->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartArticle(CartArticle $cartArticle): self
+    {
+        if ($this->cartArticles->contains($cartArticle)) {
+            $this->cartArticles->removeElement($cartArticle);
+            // set the owning side to null (unless already changed)
+            if ($cartArticle->getItem() === $this) {
+                $cartArticle->setItem(null);
+            }
         }
 
         return $this;

@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block header %} 
+<style>
+    select { 
+        width: 400px; text-align:center; 
+    }
+</style>
+
+{% endblock %} 
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+
+{% for label, flashes in app.session.flashbag.all %}
+    {% for flash in flashes %}
+        {% if ( label == 'success' ) %}
+            <div class="alert alert-success alert-dismissible fade show">
+                {{ flash }}
+            </div>
+        {% elseif ( label == 'error' ) %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                {{ flash }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+<h1>MON PANIER</h1>
+
+{% if app.user %}
+
+{% if carts | length > 0 %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Price</th>
+                <th>Quantité</th>
+                <th>Modifier la quantité</th>
+                <th>Total</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            {% for item in carts %}
+                <tr>
+                    <td>{{ item.articleName}} </td>
+                    <td>{{ item.price}}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                        <input type="number" value="{{ item.quantity }}" min="0" max="10">
+                    </td>
+                    <td>{{ item.price * item.quantity }}</td>
+                    <td>
+                        <a href="#" class="btn btn-success btn-sm">
+                            <i class="fas fa-check"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                 <td colspan="3" class="text-right"><b>Total : </b></td> 
+                <td> <b>{{total}} €</b></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+
+{% else %}
+    <p>Panier Vide</p>
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{# {% if app.user %}
+ {% for aResult in result %}
+    {{aResult.articleName}}
+{% endfor %} 
+{% endif %} #}

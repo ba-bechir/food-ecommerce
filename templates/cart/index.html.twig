@@ -1,4 +1,13 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
+
+{% block header %} 
+<style>
+    select { 
+        width: 400px; text-align:center; 
+    }
+</style>
+
+{% endblock %} 
 
 {% block title %}Homepage{% endblock %}
 
@@ -16,6 +25,7 @@
                 <th>Quantité</th>
                 <th>Total</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -23,8 +33,22 @@
                 <tr>
                     <td>{{ item.product.articleName}}</td>
                     <td>{{ item.product.price}}</td>
-                    <td>{{ item.quantity }}</td>
+                    <td>
+                        <select name="quantity" class="form-control" id="exampleFormControlSelect1">
+                         
+                            {% for i in 0..10%}
+                                <option selected="{{item.quantity}}">{{i}}</option>
+                            {% endfor %}
+                    
+                        </center>
+                        </select>
+                    </td>
                     <td>{{ item.product.price * item.quantity }}</td>
+                    <td>
+                        <a href="#" class="btn btn-success btn-sm">
+                            <i class="fas fa-check"></i>
+                        </a>
+                    </td>
                     <td>
                         <a href="{{ path('cart_remove', {'id' : item.product.id }) }}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash"></i>
@@ -46,4 +70,4 @@
     <p>Panier Vide</p>
 {% endif %}
 
-{% endblock %}
+{% endblock %} #}
