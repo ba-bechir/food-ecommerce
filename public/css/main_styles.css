@@ -180,7 +180,7 @@ h6::selection
 }
 .form-control
 {
-	color: #db5246;
+	color: #030303;
 }
 section
 {
@@ -1683,4 +1683,9 @@ section
 .footer_social ul li a:hover
 {
 	color: #fe4c50;
+}
+
+#form_login
+{
+	padding-top: 10%;
 }

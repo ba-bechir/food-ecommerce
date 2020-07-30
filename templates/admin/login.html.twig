@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Connexion au site{% endblock %}
 
@@ -12,7 +12,7 @@
                 {% if hasError %}
                     <div class="alert alert-danger">Une erreur est survenue</div>
                 {% endif %}
-            <form action="{{ path('account_login') }}" method="post">
+            <form action="{{ path('account_admin_login') }}" method="post">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" name="_username" id="email" class="form-control" placeholder="Adresse email..." required value="{{username}}">

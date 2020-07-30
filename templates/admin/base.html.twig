@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bechir - {% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Colo Shop Template">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.carousel.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.theme.default.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/main_styles.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/responsive.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/grid_view.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/product_detail.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+        
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
+        crossorigin="anonymous"/>
+
+        {# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% include 'admin/header.html.twig' %}
+
+        {% block header %} {% endblock %} 
+        {% block body %}{% endblock %}
+        
+        {% include 'partials/footer.html.twig' %}
+        {% block javascripts %}
+       
+        {% endblock %}
+    </body>
+</html>
