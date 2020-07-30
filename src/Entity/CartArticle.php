@@ -42,6 +42,21 @@ class CartArticle
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $envoyeAuCommercant = 0;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enCoursdePreparation = 0;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $commandePrete = 0;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -147,6 +162,42 @@ class CartArticle
     public function setUser($user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEnvoyeAuCommercant(): ?bool
+    {
+        return $this->envoyeAuCommercant;
+    }
+
+    public function setEnvoyeAuCommercant(bool $envoyeAuCommercant): self
+    {
+        $this->envoyeAuCommercant = $envoyeAuCommercant;
+
+        return $this;
+    }
+
+    public function getEnCoursdePreparation(): ?bool
+    {
+        return $this->enCoursdePreparation;
+    }
+
+    public function setEnCoursdePreparation(bool $enCoursdePreparation): self
+    {
+        $this->enCoursdePreparation = $enCoursdePreparation;
+
+        return $this;
+    }
+
+    public function getCommandePrete(): ?bool
+    {
+        return $this->commandePrete;
+    }
+
+    public function setCommandePrete(bool $commandePrete): self
+    {
+        $this->commandePrete = $commandePrete;
 
         return $this;
     }
