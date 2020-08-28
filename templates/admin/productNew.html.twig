@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %} Nouveau produit {% endblock %}
+
+{% block body %}
+
+
+
+{% for image in article.images %}
+{% endfor %}
+
+    <div class="container-fluid">
+        <h1 class="my-5">Ajouter le produit </h1>
+
+        {{ form_start(form) }}
+
+                 
+        {{ form_end(form) }}
+        <h2></h2>
+        <div id="instructions" class="col-lg-8"></div>
+        <h3>Actualiser la page pour voir l'image sélectionné</h3>
+        
+
+    </div>
+   
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+    var fu1 = document.getElementById("article_image");
+    let instruction = document.createElement('div');
+    instruction.textContent = fu1.value;
+    document.querySelector('#instructions').prepend(instruction);
+    alert("Vous avez sélectionné l'image " + fu1.value);
+
+</script>
+
+{% endblock %}
+{# //location.reload(true);
+ #}

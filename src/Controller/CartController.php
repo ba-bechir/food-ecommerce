@@ -81,7 +81,6 @@ class CartController extends AbstractController
           $cartArticle->setArticle($article);
           
           $cartArticle->setQuantity($_POST['quantity']);
-         
             
           $manager->persist($cartArticle);
           $manager->flush();

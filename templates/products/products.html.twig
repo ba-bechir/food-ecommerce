@@ -21,7 +21,11 @@
         {% if article.quantity > 0%}
     <div class="col-md-4 d-flex align-items-stretch">
         <figure class="card card-product">
-            <div class="img-wrap"><img src="{{article.photos}}"></div>
+            {% for image in article.images %}
+                <div>
+                    <img src="{{ asset('/uploads/' ~ image.name) }}" width="150">
+                </div>
+                {% endfor %}
             <figcaption class="info-wrap">
                     <a href="{{ path('products_details', {'id' : article.id }) }}"><h4 class="title">{{article.articleName}}</h4></a>
                     <p class="desc">{{article.ingredients | raw }}</p>

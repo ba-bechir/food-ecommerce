@@ -6,6 +6,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -35,32 +36,27 @@ class Article
     private $quantity;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $photos;
-
-    /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $origine;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $composition;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $nutritionInformation;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $ingredients;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $expirationDate;
 
@@ -71,6 +67,11 @@ class Article
      */
     private $cartArticles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
+     */
+    private $images;
+
 
 
     public function __construct()
@@ -78,6 +79,7 @@ class Article
        
         $this->user = new ArrayCollection();
         $this->cartArticles = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,48 +87,48 @@ class Article
         return $this->id;
     }
 
-    public function getArticleName(): ?string
+    public function getArticleName()
     {
         return $this->articleName;
     }
 
-    public function setArticleName(string $articleName): self
+    public function setArticleName($articleName)
     {
         $this->articleName = $articleName;
 
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice()
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice($price)
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function getQuantity()
     {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getPhotos(): ?string
+    public function getPhotos()
     {
         return $this->photos;
     }
 
-    public function setPhotos(string $photos): self
+    public function setPhotos($photos)
     {
         $this->photos = $photos;
 
@@ -261,6 +263,37 @@ class Article
             // set the owning side to null (unless already changed)
             if ($cartArticle->getItem() === $this) {
                 $cartArticle->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getArticle() === $this) {
+                $image->setArticle(null);
             }
         }
 

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200730142905 extends AbstractMigration
+final class Version20200826235326 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20200730142905 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE cart_article ADD envoye_au_commercant TINYINT(1) NOT NULL, ADD en_coursde_preparation TINYINT(1) NOT NULL, ADD commande_prete TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE article CHANGE ingredients ingredients LONGTEXT DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +30,6 @@ final class Version20200730142905 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE cart_article DROP envoye_au_commercant, DROP en_coursde_preparation, DROP commande_prete');
+        $this->addSql('ALTER TABLE article CHANGE ingredients ingredients LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }

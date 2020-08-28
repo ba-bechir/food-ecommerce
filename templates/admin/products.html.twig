@@ -5,6 +5,38 @@
 
 {% block body %}
 
-ADMIN PRODCUTS
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Article</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Qté</th>
+        <th scope="col">Photo</th>
+        <th scope="col">Origine</th>
+      </tr>
+    </thead>
+    {% for article in articles %}
+    <tbody>
+      <tr>
+        <td>{{article.articleName}}</td>
+        <td>{{article.price}}</td>
+        <td>{{article.quantity}}</td>
+        <td><div class="img-wrap">
+          {# <img src="/uploads/{{article.images}}"></div></td> #}
+        <td>{{article.origine}}</td>
+        <td>
+            <a href="{{ path('admin_edit_products', {'id' : article.id }) }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-edit"></i>
+            </a>
+        </td>
+        <td>
+            <a href="#" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i>
+            </a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
 
 {% endblock %}

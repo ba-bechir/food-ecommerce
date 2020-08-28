@@ -5,7 +5,12 @@
                 <nav class="navbar">
                     <ul class="navbar_menu">
                         <li><a href="{{ path('products') }}">Accueil</a></li>
-                        <li><a href="#">contact</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('admin_products') }}">Liste des articles</a></li>
+                            <li><a href="#">Liste des clients</a></li>
+                            <li><a href="#">Commandes</a></li>
+                            <li><a href="#">Contact</a></li>
+                        {% endif %}
                     </ul>
                     <ul class="navbar_user">
                         <li><a href="{{ path('account_login') }}"><i class="fa fa-user" aria-hidden="true"></i></a></li>

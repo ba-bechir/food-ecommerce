@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %} Modifier le produit {{article.articleName}} {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="my-5">Modifier le produit </h1>
+        
+        {{ form_start(form) }}
+        {{ form_label(form.articleName) }}
+        {{ form_widget(form.articleName)}}
+
+        {{ form_label(form.price) }}
+        {{ form_widget(form.price)}}
+
+        {{ form_label(form.quantity) }}
+        {{ form_widget(form.quantity)}}
+    
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image)}}
+        <h3>Actualiser la page pour voir l'image sélectionné</h3><br>
+        <h2></h2>
+        <div id="instructions" class="col-lg-8"></div>
+        {% for image in article.images %}
+        <img src="{{ asset('/uploads/') ~ image.name }}"><br><br>
+        {% endfor %}
+        {{ form_end(form) }}
+        
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    var fu1 = document.getElementById("article_image");
+    let instruction = document.createElement('div');
+    instruction.textContent = fu1.value;
+    document.querySelector('#instructions').prepend(instruction);
+    alert("Vous avez changé l'ancienne image pour " + fu1.value);
+</script>
+    <script src="{{ asset('js/images.js') }}"></script>
+
+{% endblock %}

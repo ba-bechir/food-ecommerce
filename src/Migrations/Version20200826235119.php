@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200630092642 extends AbstractMigration
+final class Version20200826235119 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,7 @@ final class Version20200630092642 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE article ADD cart_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE article ADD CONSTRAINT FK_23A0E661AD5CDBF FOREIGN KEY (cart_id) REFERENCES cart (id)');
-        $this->addSql('CREATE INDEX IDX_23A0E661AD5CDBF ON article (cart_id)');
+        $this->addSql('ALTER TABLE article DROP photos');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +30,6 @@ final class Version20200630092642 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE article DROP FOREIGN KEY FK_23A0E661AD5CDBF');
-        $this->addSql('DROP INDEX IDX_23A0E661AD5CDBF ON article');
-        $this->addSql('ALTER TABLE article DROP cart_id');
+        $this->addSql('ALTER TABLE article ADD photos VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }
