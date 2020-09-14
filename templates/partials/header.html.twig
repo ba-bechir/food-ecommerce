@@ -6,8 +6,8 @@
                     <ul class="navbar_menu">
                         <li><a href="{{ path('products') }}">Accueil</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <li><a href="{{ path('admin_products') }}">Liste des articles</a></li>
-                            <li><a href="#">Liste des clients</a></li>
+                            <li><a href="{{ path('admin_products') }}">Articles</a></li>
+                            <li><a href="{{ path('admin_clients') }}">Clients</a></li>
                             <li><a href="#">Commandes</a></li>
                             <li><a href="#">Contact</a></li>
                         {% endif %}

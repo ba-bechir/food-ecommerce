@@ -45,6 +45,11 @@ class User implements UserInterface
      */
     private $hash;
 
+     /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $phoneNumber;
+
     /**
      * @Assert\EqualTo(propertyPath="hash", message="Les deux mots de passe ne sont pas identiques")
      */

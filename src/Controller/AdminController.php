@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Form\UserEditType;
+use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -169,5 +172,45 @@ class AdminController extends AbstractController
         else {
             return new JsonResponse(['error' => "Token Invalide"], 400);
         }
-    }  
+    } 
+
+
+    /**
+     * @Route("/admin/clients", name="admin_clients")
+     */
+    public function showClients(UserRepository $repo)
+    {
+    
+        $clients = $repo->findAll();
+
+        return $this->render('admin/clients.html.twig', [
+            'clients' => $clients
+        ]);
+    }
+
+    /**
+     * @Route("/admin/clients/edit/{id}", name="admin_clients_edit")
+     */
+    public function edit(User $user, Request $request, EntityManagerInterface $manager)
+    {
+        $form = $this->createForm(UserEditType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Informations mis à jour"
+            );
+        }
+
+        return $this->render('admin/clientEdit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+    
 }
