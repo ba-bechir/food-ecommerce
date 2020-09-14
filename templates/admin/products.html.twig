@@ -22,7 +22,9 @@
         <td>{{article.price}}</td>
         <td>{{article.quantity}}</td>
         <td><div class="img-wrap">
-          {# <img src="/uploads/{{article.images}}"></div></td> #}
+          {% for image in article.images %}
+          <img src="/uploads/{{image.name}}" width="400"></div></td>
+          {% endfor %}
         <td>{{article.origine}}</td>
         <td>
             <a href="{{ path('admin_edit_products', {'id' : article.id }) }}" class="btn btn-primary btn-sm">

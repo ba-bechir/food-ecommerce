@@ -9,7 +9,9 @@
 	<div class="row">
 		<aside class="col-sm-5 border-right">
 
-  <img class="center" src="{{article.photos}}">
+			{% for image in article.images %}
+  		<img class="center" src="{{ asset('/uploads/' ~ image.name) }}">
+  		    {% endfor %}
 
 		</aside>
 		<aside class="col-sm-7">
