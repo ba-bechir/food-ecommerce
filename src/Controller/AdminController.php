@@ -212,5 +212,20 @@ class AdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/admin/product/delete/{id}", name="admin_product_delete")
+     */
+    public function delete(Article $article, EntityManagerInterface $manager)
+    {
+            $manager->remove($article);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "L'article a bien été supprimé' !");
+
+            return $this->redirectToRoute('admin_products');
+    }
     
 }

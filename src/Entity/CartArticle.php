@@ -27,7 +27,7 @@ class CartArticle
 
     /**
      * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="cartArticles")
-     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $article;
 
