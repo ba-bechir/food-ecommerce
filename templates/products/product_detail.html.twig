@@ -51,32 +51,37 @@
 			<dl class="param param-inline">
 			  <dt>Quantité </dt>
 			  <dd>
-			  	<select class="form-control form-control-sm" style="width:70px;">
-					  {% for i in 1.. article.quantity %}
-							{% if article.quantity < 10 %}
-								<option> {{i}} </option>
-							{% endif %}	
-						{% endfor %}
-							
-						{% if article.quantity > 10 %}
-							{% for i in 1..10%}
-								<option> {{i}} </option>
-							{% endfor %}
-						{% endif %}
-			  		
-			  	</select>
+				  
+				  <form action="{{ path('cart_add', {'id' : article.id }) }}" method="post"> <br>
+					<select name="quantity" class="form-control" id="exampleFormControlSelect1">
+						{% for i in 1.. article.quantity %}
+							  {% if article.quantity < 10 %}
+								  <option> {{i}} </option>
+							  {% endif %}	
+						  {% endfor %}
+							  
+						  {% if article.quantity > 10 %}
+							  {% for i in 1..10%}
+								  <option> {{i}} </option>
+							  {% endfor %}
+						  {% endif %}
+					</select>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Ajouter au panier</button>
+					</div>
+				</form>
+
 			  </dd>
 			</dl>  <!-- item-property .// -->
 		</div> <!-- col.// -->
 		
 	</div> <!-- row.// -->
 	<hr>
-	<a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Ajouter au panier </a>
 </article> <!-- card-body.// -->
 		</aside> <!-- col.// -->
 	</div> <!-- row.// -->
 </div> <!-- card.// -->
-
 
 </div>
 <!--container.//-->
