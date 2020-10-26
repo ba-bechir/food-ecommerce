@@ -15,9 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+
+
 
 class CartController extends AbstractController
 {
+    
+
     /**
      * @Route("/cart", name="cart_index")
      * Afficher le contenu du panier
@@ -109,24 +114,6 @@ class CartController extends AbstractController
         
     }
 
-    /**
-     * @Route("/cart/remove/{id}", name="cart_remove")
-     * Suppression d'articles dans le panier
-     */
-    public function remove(Article $article, SessionInterface $session)
-    {
-        $cart = $session->get('cart', []);
-
-        if(!empty($cart[$article->getId()]))
-        {
-            unset($cart[$article->getId()]);
-        } 
-
-        $session->set('cart', $cart);
-
-        return $this->redirectToRoute('cart_index');
-    }
-
     
     /**
      * @Route("/cart/{id}", name="cart_connected")
@@ -135,7 +122,9 @@ class CartController extends AbstractController
      */
     public function showCartConnected(SessionInterface $session,  ArticleRepository $articleRepository, CartService $cartService, User $id)
     {
+        
         $id = $this->getUser()->getId();
+        //Possibilité d'y récupérer l'id d'un article
         $carts = $cartService->getCart($id);
 
         $total = 0;
@@ -151,10 +140,41 @@ class CartController extends AbstractController
             
         return $this->render('cart/indexConnected.html.twig', [
             'carts' => $carts,
-            'total' => $total
+            'total' => $total,
+            /* 'idDeLarticle' => $idDeLarticle */
     ]);
     
         }
 
-        //$_POST['quantity']
+        /** 
+     * @Route("/cart/remove/{id}", name="cart_remove")
+     * Suppression d'articles dans le panier
+     */
+     public function remove(CartService $cartService, ArticleRepository $repo, EntityManagerInterface $manager)
+     {
+        $user = $this->getUser()->getId();
+          //Possibilité d'y récupérer l'id d'un article
+         $carts = $cartService->getCart($user);
+        
+         if($carts[1]['id'])
+         {
+         $article = $carts[1]['id'];
+         $cartService->deleteArticleInCart($user, $article); 
+         }
+
+          else
+         {
+            $article = $carts[0]['id'];
+            $cartService->deleteArticleInCart($user, $article);
+         } 
+
+         $this->addFlash(
+            'success',
+            "Article supprimé"
+        );
+        
+        return $this->redirectToRoute('cart_connected', array(
+            'id' => $user
+        ));
+     } 
     }

@@ -36,6 +36,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Produit</th>
                 <th>Price</th>
                 <th>Quantité</th>
@@ -48,7 +49,9 @@
         <tbody>
            
             {% for item in carts %}
+                
                 <tr>
+                    <td>{{ item.id}}</td>
                     <td>{{ item.articleName}} </td>
                     <td>{{ item.price}}</td>
                     <td>{{ item.quantity }}</td>
@@ -62,11 +65,12 @@
                         </a>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-danger btn-sm">
+                        <a href="{{ path('cart_remove', { 'id': item.id }) }}" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
                 </tr>
+               
             {% endfor %}
         </tbody>
         <tfoot>
