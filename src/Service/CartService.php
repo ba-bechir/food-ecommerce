@@ -27,7 +27,6 @@ class CartService {
             ->getResult();
     }
 
-    //DELETE FROM cart_article WHERE cart_article.user_id = 11 AND cart_article.article_id = 1 
         public function deleteArticleInCart($user, $article)
     {
         return $this->manager->createQuery(
@@ -39,7 +38,19 @@ class CartService {
         ->getResult(); 
         
             
-    } 
+    }
+    
+    public function updateQuantityInCart($user, $quantity, $article)
+    {
+        return $this->manager->createQuery(
+            'UPDATE App\Entity\CartArticle ca
+             SET ca.quantity = ' .$quantity . 
+             'WHERE ca.user = '  .$user .
+             'AND ca.article  = ' .$article   
+             
+            ) 
+            ->getResult();
+    }
 
 }
 

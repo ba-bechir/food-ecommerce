@@ -43,6 +43,3 @@ class ProductController extends AbstractController
         ]);
     }
 }
-
-
-

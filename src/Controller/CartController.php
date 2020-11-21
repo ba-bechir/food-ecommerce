@@ -9,20 +9,18 @@ use App\Entity\CartArticle;
 use App\Service\CartService;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CartArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
     
-
     /**
      * @Route("/cart", name="cart_index")
      * Afficher le contenu du panier
@@ -120,7 +118,7 @@ class CartController extends AbstractController
      * @IsGranted("ROLE_USER")
      * Afficher le contenu du panier
      */
-    public function showCartConnected(SessionInterface $session,  ArticleRepository $articleRepository, CartService $cartService, User $id)
+    public function showCartConnected(SessionInterface $session, ArticleRepository $articleRepository, CartService $cartService, User $id)
     {
         
         $id = $this->getUser()->getId();
@@ -177,4 +175,27 @@ class CartController extends AbstractController
             'id' => $user
         ));
      } 
-    }
+
+     /**
+     * @Route("/cart/update/{id}", name="cart_update")
+     * @IsGranted("ROLE_USER")
+     * MAJ qté d'articles dans le panier
+     */
+    public function updateQuantity(CartService $cartService, ArticleRepository $repo, EntityManagerInterface $manager, $id)
+    {
+        $user = $this->getUser()->getId();
+        $quantity = $_POST['quantity_update'];
+
+        /*Possibilité d'y récupérer l'id d'un article
+          $carts = $cartService->getCart($user); 
+        */
+
+        //$id : paramètre de la route
+        $cartService->updateQuantityInCart($user, $quantity, $id); 
+                 
+         return $this->redirectToRoute('cart_connected', array(
+            'id' => $user
+        )); 
+         
+    } 
+} 

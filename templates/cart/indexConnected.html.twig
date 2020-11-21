@@ -41,31 +41,44 @@
                 <th>Price</th>
                 <th>Quantité</th>
                 <th>Modifier la quantité</th>
+                <th></th>
                 <th>Total</th>
                 <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-           
+            
             {% for item in carts %}
-                
+               
                 <tr>
                     <td>{{ item.id}}</td>
                     <td>{{ item.articleName}} </td>
                     <td>{{ item.price}}</td>
                     <td>{{ item.quantity }}</td>
                     <td>
-                        <input type="number" value="{{ item.quantity }}" min="0" max="10">
+                        {# <input type="number" value="{{ item.quantity }}" min="0" max="10"> #}
+                        <form action="{{ path('cart_update', { 'id': item.id }) }}" method="post"> <br> 
+                            <select name="quantity_update" class="form-control" id="exampleFormControlSelect1"> 
+                            {% for i in 1..10 %}
+                                <option>{{i}}</option>
+                            {% endfor %}
+                        </select>
+                            <td>   
+                            <div class="form-group"><br>
+                                <button type="submit" class="btn btn-success"><i class="fas fa-check"></i></button>
+                            </div>
+                        </td>
+                        <br>
+                        </form>
+                        
                     </td>
-                    <td>{{ item.price * item.quantity }}</td>
+                    
+                    <td><br>{{ item.price * item.quantity }}</td>
+                  
                     <td>
-                        <a href="#" class="btn btn-success btn-sm">
-                            <i class="fas fa-check"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('cart_remove', { 'id': item.id }) }}" class="btn btn-danger btn-sm">
+                        <br>
+                        <a href="{{ path('cart_remove', { 'id': item.id }) }}" class="btn btn-danger btn-sm"> 
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -83,49 +96,10 @@
     </table>
 
 {% else %}
-    <p>Panier Vide</p>
+    <p>Panier Vide</p> <pre>
+        
+    </pre>
 {% endif %}
 {% endif %}
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{# {% if app.user %}
- {% for aResult in result %}
-    {{aResult.articleName}}
-{% endfor %} 
-{% endif %} #}
