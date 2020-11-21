@@ -148,23 +148,14 @@ class CartController extends AbstractController
      * @Route("/cart/remove/{id}", name="cart_remove")
      * Suppression d'articles dans le panier
      */
-     public function remove(CartService $cartService, ArticleRepository $repo, EntityManagerInterface $manager)
+     public function remove(CartService $cartService, ArticleRepository $repo, EntityManagerInterface $manager, $id)
      {
         $user = $this->getUser()->getId();
-          //Possibilité d'y récupérer l'id d'un article
-         $carts = $cartService->getCart($user);
-        
-         if($carts[1]['id'])
-         {
-         $article = $carts[1]['id'];
-         $cartService->deleteArticleInCart($user, $article); 
-         }
-
-          else
-         {
-            $article = $carts[0]['id'];
-            $cartService->deleteArticleInCart($user, $article);
-         } 
+          /*Possibilité d'y récupérer l'id d'un article
+            $carts = $cartService->getCart($user);
+        */    
+         
+         $cartService->deleteArticleInCart($user, $id); 
 
          $this->addFlash(
             'success',
