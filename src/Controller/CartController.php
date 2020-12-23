@@ -62,48 +62,51 @@ class CartController extends AbstractController
      * @IsGranted("ROLE_USER")
      * Ajout d'articles dans le panier
      */
-    public function add(Article $article, SessionInterface $session, ArticleRepository $articleRepository, EntityManagerInterface $manager)
+    public function add(Article $article, SessionInterface $session, $id, CartService $cartService, ArticleRepository $articleRepository, EntityManagerInterface $manager)
     {
           $user = $this->getUser();
+          //$idUser = $this->getUser()->getId();
 
-          if($_POST['quantity'] > $article->getQuantity())
-          {
+         //$carts = $cartService->getCart($idUser);
+         //dump($carts); die;
+         
+         /* for($i = 0 ; $i < count($carts) ; $i++)
+         {
+            if($carts[$i]['id'])
+         {
+                $cartService->updateQuantityInCart($idUser, $carts[$i]['quantity'] + $_POST['quantity'], $id); 
+                
+         }
+                
+         } */
+        
+         
+            $cartArticle = new CartArticle();
+
+            $cartArticle->setUser($user); 
+            $cartArticle->setArticle($article);
+            
+            $cartArticle->setQuantity($_POST['quantity']);
+              
+            $manager->persist($cartArticle);
+            $manager->flush(); 
+         
+          /* if($_POST['quantity'] > $article->getQuantity())
+          { 
+
             $this->addFlash(
                 'error',
                 'Quantité non disponible en stock ! Retournez vers la page précédente'
                 
             );
             
-          }
-
-          else {
-
-          $cartArticle = new CartArticle();
-
-          $cartArticle->setUser($user); 
-          $cartArticle->setArticle($article);
-          
-          $cartArticle->setQuantity($_POST['quantity']);
+        }  */
             
-          $manager->persist($cartArticle);
-          $manager->flush();
-            
-        }
-            
-        $articleQuantity = $article->getQuantity();
 
         /* Récupération du panier
            [] : par défaut, panier vide
         */
         $cart = $session->get('cart', []);
-
-        //Gestion ajout article dans le cart si deja présent
-        if(!empty($cart[$article->getId()]))
-        {
-            $cart[$article->getId()]++;
-        } else {
-            $cart[$article->getId()] = 1;
-        }
 
         //Affichage
         $session->set('cart', $cart);
@@ -155,6 +158,7 @@ class CartController extends AbstractController
             $carts = $cartService->getCart($user);
         */    
          
+        //$id : paramètre de la route
          $cartService->deleteArticleInCart($user, $id); 
 
          $this->addFlash(
