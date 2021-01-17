@@ -80,7 +80,6 @@ class CartController extends AbstractController
                 
          } */
         
-         
             $cartArticle = new CartArticle();
 
             $cartArticle->setUser($user); 

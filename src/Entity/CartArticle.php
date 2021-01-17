@@ -45,7 +45,7 @@ class CartArticle
     /**
      * @ORM\Column(type="boolean")
      */
-    private $envoyeAuCommercant = 0;
+    private $aPreparer = 0;
 
     /**
      * @ORM\Column(type="boolean")
@@ -56,6 +56,11 @@ class CartArticle
      * @ORM\Column(type="boolean")
      */
     private $commandePrete = 0;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $commandeRecuperees = 0;
 
     public function __construct()
     {
@@ -198,6 +203,26 @@ class CartArticle
     public function setCommandePrete(bool $commandePrete): self
     {
         $this->commandePrete = $commandePrete;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of commandeRecuperees
+     */ 
+    public function getCommandeRecuperees()
+    {
+        return $this->commandeRecuperees;
+    }
+
+    /**
+     * Set the value of commandeRecuperees
+     *
+     * @return  self
+     */ 
+    public function setCommandeRecuperees($commandeRecuperees)
+    {
+        $this->commandeRecuperees = $commandeRecuperees;
 
         return $this;
     }

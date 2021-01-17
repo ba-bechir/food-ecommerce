@@ -56,9 +56,9 @@ class Article
     private $ingredients;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $expirationDate;
+    private $description;
 
   
     /**
@@ -183,19 +183,6 @@ class Article
         return $this;
     }
 
-    public function getExpirationDate(): ?\DateTimeInterface
-    {
-        return $this->expirationDate;
-    }
-
-    public function setExpirationDate(\DateTimeInterface $expirationDate): self
-    {
-        $this->expirationDate = $expirationDate;
-
-        return $this;
-    }
-
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -300,4 +287,24 @@ class Article
         return $this;
     }
 
+
+    /**
+     * Get the value of description
+     */ 
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     *
+     * @return  self
+     */ 
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 }

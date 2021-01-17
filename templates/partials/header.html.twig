@@ -8,7 +8,7 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('admin_products') }}">Articles</a></li>
                             <li><a href="{{ path('admin_clients') }}">Clients</a></li>
-                            <li><a href="#">Commandes</a></li>
+                            <li><a href="{{ path('admin_orders') }}">Commandes</a></li>
                             <li><a href="#">Contact</a></li>
                         {% endif %}
                     </ul>

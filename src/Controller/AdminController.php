@@ -214,18 +214,13 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/product/delete/{id}", name="admin_product_delete")
+     * @Route("/admin/orders", name="admin_orders")
      */
-    public function delete(Article $article, EntityManagerInterface $manager)
+    public function orderPrepare()
     {
-            $manager->remove($article);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "L'article a bien été supprimé' !");
-
-            return $this->redirectToRoute('admin_products');
+            return $this->render('admin/order.html.twig');
     }
+
+
     
 }
